@@ -10,18 +10,18 @@
 
   <!-- Robot -->
   <group if="$(arg sim_robot)">
-    <include file="$(find snp_ur_bringup)/launch/ur_gazebo.launch"/>      <!--Modify the gazebo file-->
+    <include file="$(find snp_ur_bringup)/launch/ur_gazebo.launch"/>                        <!--Modify the gazebo path-->
   </group>
 
   <group unless="$(arg sim_robot)">
-    <include file="$(find snp_ur_bringup)/launch/ur5_bringup_joint_limited.launch">
-      <arg name="robot_ip" value="192.168.0.1"/>
+    <include file="$(find snp_ur_bringup)/launch/ur5_bringup_joint_limited.launch">         <!--Modify the real robot path-->
+      <arg name="robot_ip" value="192.168.0.1"/>                                            <!--Modify the IP address-->
     </include>
   </group>
   
-  <rosparam command="load" file="$(find snp_ur5_moveit_config)/config/joint_names.yaml"/>
+  <rosparam command="load" file="$(find snp_ur5_moveit_config)/config/joint_names.yaml"/>   <!--Modify the joint names path-->
 
-  <include file="$(find snp_ur5_moveit_config)/launch/move_group.launch">
+  <include file="$(find snp_ur5_moveit_config)/launch/move_group.launch">                   <!--Modify the move group path-->
     <arg name="publish_monitored_planning_scene" value="true" />
     <arg name="fake_execution" value="false"/>
     <arg name="pipeline" value="$(arg pipeline)" />
