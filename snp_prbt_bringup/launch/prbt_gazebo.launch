@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
+  <arg name="controller_group" default="manipulator"/>
   <arg name="robot_name" default="prbt" />
   <arg name="paused" default="true"/>
   <arg name="gui" default="false"/>
@@ -20,6 +21,11 @@
     -J $(arg robot_name)_joint_5 -1.0
     -J $(arg robot_name)_joint_6 -1.5
     "/>
+
+  <!-- Controllers -->
+  <rosparam command="load" file="$(find ur_gazebo)/controller/arm_controller_ur5.yaml" />           <!--Modify controller path and namespace-->
+  <rosparam file="$(find ur_gazebo)/controller/joint_state_controller.yaml" command="load"/>
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" args="arm_controller joint_state_controller" />
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
